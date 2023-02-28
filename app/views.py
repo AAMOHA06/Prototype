@@ -11,10 +11,13 @@ def index():
     csv_files = [file for file in os.listdir('dataset') if file.endswith('.csv')]
     return render_template('index.html', csv_files=csv_files)
 
+
 @app.route('/proceed', methods=['POST'])
-def proceed_data():
-    file_name = request.form['csv_file']
-    file_path = os.path.join('dataset', file_name)
-    data = pd.read_csv(file_path)
-    html_table = data.to_html(index=False)
-    return render_template('data.html', table=html_table)
+def proceed():
+    if request.method == 'POST':
+        file_name = request.form['csv_file']
+        file_path = os.path.join('dataset', file_name)
+        data = pd.read_csv(file_path)
+        headers = data.columns.tolist()
+        rows = data.values.tolist()
+        return render_template('data.html', headers=headers, rows=rows)
