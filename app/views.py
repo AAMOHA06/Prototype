@@ -25,4 +25,4 @@ def proceed():
         print(file_path)
         headers = data.columns.tolist()
         rows = data.values.tolist()
-        return render_template('data.html', headers=headers, rows=rows)
+        return render_template('index.html', headers=headers, rows=rows)
